@@ -1,0 +1,12 @@
+###
+POST http://localhost:8000/sql/checkin
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVhY2hlciIsImVtYWlsIjoiQVNCQ0BrZWEuZGsiLCJpZCI6MSwiaWF0IjoxNjQzNDU3MDQ2fQ.kjLkG0mVS8i1UzVhbcX2fD7ovRi9ZquIVuTLZRgXVmc
+Content-Type: application/json
+
+{
+    "student_id": "3",
+    "passphrase": "blue little monkeys"
+}
+
+###
+GET http://localhost:8000/todo/api/v1/rest-auth/login
