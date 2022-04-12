@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Todo
 
@@ -32,3 +33,10 @@ def todo_details_partial(request, pk):
 
     todos = Todo.objects.all()
     return render(request, 'todo/todo_list_partial.html', {'todos': todos})
+
+
+def rerank(request):
+    # print(request.POST.getlist('todo_order'))
+    reranked = [int(item) for item in request.POST.getlist('todo_order')]
+    Todo.rerank_by_list(reranked)
+    return HttpResponse(status=204)

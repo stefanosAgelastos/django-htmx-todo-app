@@ -10,6 +10,7 @@ urlpatterns = [
     path('todo_details_partial/<int:pk>',
          views.todo_details_partial, name='todo_details_partial'),
     path('create', views.create, name='create'),
+    path('rerank', views.rerank, name='rerank'),
     # path('api/v1', TodoList.as_view()),
     # path('api/v1/<int:pk>', TodoDetail.as_view()),
     # path('api/v1/rest-auth', include('rest_framework.urls')),

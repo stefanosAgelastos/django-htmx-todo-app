@@ -1,4 +1,3 @@
-from dataclasses import field, fields
 from django.db import models, transaction
 
 
@@ -28,6 +27,14 @@ class Todo(models.Model):
     @property
     def highest_rank(cls):
         return int(cls.objects.all().aggregate(models.Max('rank'))['rank__max'] or 0)
+
+    @classmethod
+    def rerank_by_list(cls, reranked):
+        todos = [todo.pk for todo in cls.objects.all()]
+        for i, samples in enumerate(zip(todos, reranked)):
+            if not samples[0] == samples[1]:
+                new_i_index = reranked.index(todos[i])
+                Todo.objects.get(pk=todos[i]).rerank(new_i_index+1)
 
     def rerank(self, new_rank):
         with transaction.atomic():
