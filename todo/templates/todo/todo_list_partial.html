@@ -6,7 +6,7 @@
     hx-get="{% url 'todo:todo_details_partial' todo.pk %}"
     hx-trigger="click"
     hx-target="this"
-    xh-swap="outerHTML"
+    hx-swap="outerHTML"
   >
     <div>{{todo.rank}} - {{todo.title}}({{todo.pk}})</div>
   </div>
