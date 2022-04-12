@@ -1,80 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.3.css"/>
-        <style type="text/css">
-            .col-element {
-                width: 50%;
-            }
-            .left {
-                float: left;
-            }
-            .right {
-                float: right;
-            }
-            .clearfix {
-                clear: both;
-            }
-            .clickable {
-                cursor: pointer;
-            }
-        </style>
-        <title>Todo</title>
-    </head>
-    <body>
-        <header>
-            <nav>
-                <h1><a href="{% url 'todo:index' %}">Todo</a></h1>
-                <input type="checkbox" id="menu-toggle">
-                <label for="menu-toggle">&#9776;</label>
-                <a href="#">STARTUP</a>
-                <a href="#">MINIMAL</a>
-                <a href="#">BOLD</a>
-            </nav>
-            <h1>Todo</h1>
-        </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.3.css"
+    />
+    <style type="text/css">
+      .col-element {
+        width: 50%;
+      }
+      .left {
+        float: left;
+      }
+      .right {
+        float: right;
+      }
+      .clearfix {
+        clear: both;
+      }
+      .clickable {
+        cursor: pointer;
+      }
+    </style>
+    <title>Todo</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1><a href="{% url 'todo:index' %}">Todo</a></h1>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle">&#9776;</label>
+        <a href="#">STARTUP</a>
+        <a href="#">MINIMAL</a>
+        <a href="#">BOLD</a>
+      </nav>
+      <h1>Todo</h1>
+    </header>
 
-        <main>
-            <section class="left col-element">
-                <h3>Todo List</h3>
+    <main>
+      <section class="left col-element">
+        <h3>Todo List</h3>
+        <div
+          id="todo_list"
+          hx-swap="outerHTML"
+          hx-get="{%url 'todo:todo_list_partial' %}"
+          hx-trigger="load"
+        ></div>
+      </section>
+      <section class="right col-element">
+        <h3>Add Todo</h3>
+        <form>
+          <fieldset>
+            <input type="text" name="title" size="30" placeholder="Title" />
+            <textarea
+              name="text"
+              width="30"
+              height="5"
+              placeholder="Text"
+            ></textarea>
+            <button
+              hx-post="{% url 'todo:create' %}"
+              xh-trigger="click"
+              hx-swap="none"
+              target="html"
+            >
+              Submit
+            </button>
+          </fieldset>
+        </form>
+      </section>
+      <div class="clearfix"></div>
+    </main>
 
-            </section>
-            <section class="right col-element">
-                <h3>Add Todo</h3>
-                <form>
-                    <fieldset>
-                        <input type="text" name="title" size="30" placeholder="Title" />
-                        <textarea name="text" width="30" height="5" placeholder="Text"></textarea>
+    <footer>That's all, folks!</footer>
 
-                    </fieldset>
-                </form>
-            </section>
-            <div class="clearfix"></div>
-        </main>
-
-        <footer>
-            That's all, folks!
-        </footer>
-
-        <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-        <script>
-            document.body.addEventListener('htmx:configRequest', (event) => {
-                event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-            })
-            htmx.onLoad(function(content) {
-                var sortables = content.querySelectorAll(".sortable");
-                for (var i = 0; i < sortables.length; i++) {
-                        var sortable = sortables[i];
-                        new Sortable(sortable, {
-                        animation: 150,
-                        ghostClass: 'blue-background-class'
-                    });
-                }
-            })
-        </script>
-    </body>
+    <script
+      src="https://unpkg.com/htmx.org@1.5.0"
+      integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+      document.body.addEventListener("htmx:configRequest", (event) => {
+        event.detail.headers["X-CSRFToken"] = "{{ csrf_token }}";
+      });
+      htmx.onLoad(function (content) {
+        var sortables = content.querySelectorAll(".sortable");
+        for (var i = 0; i < sortables.length; i++) {
+          var sortable = sortables[i];
+          new Sortable(sortable, {
+            animation: 150,
+            ghostClass: "blue-background-class",
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
-

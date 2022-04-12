@@ -1,0 +1,33 @@
+<div id="todo_{{todo.pk}}">
+  <form>
+    <fieldset>
+      <div>
+        {{todo.rank}} -
+        <input
+          type="text"
+          name="todo_{{todo.pk}}_title"
+          value="{{todo.title}}"
+        />
+      </div>
+      <div>
+        <textarea name="todo_{{todo_pk}}_text" rows="5" cols="30">
+                    {{todo.text}}</textarea
+        >
+      </div>
+      <button
+        hx-put="{% url 'todo:todo_details_partial' todo.pk %}"
+        hx-target="#todo_list"
+        hx-swap="outerHTML"
+      >
+        Update
+      </button>
+      <button
+        hx-delete="{% url 'todo:todo_details_partial' todo.pk %}"
+        hx-target="#todo_list"
+        hx-swap="outerHTML"
+      >
+        Delete
+      </button>
+    </fieldset>
+  </form>
+</div>
