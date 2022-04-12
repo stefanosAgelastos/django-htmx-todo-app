@@ -1,5 +1,3 @@
-from cgitb import text
-from crypt import methods
 from django.shortcuts import get_object_or_404, render
 from .models import Todo
 
@@ -28,8 +26,9 @@ def todo_details_partial(request, pk):
     elif request.method == 'DELETE':
         todo.delete()
     elif request.method == 'PUT':
-        # update item in DB
-        ...
+        todo.title = request.PUT[f'todo_{pk}_title']
+        todo.text = request.PUT[f'todo_{pk}_text']
+        todo.save()
 
     todos = Todo.objects.all()
     return render(request, 'todo/todo_list_partial.html', {'todos': todos})
