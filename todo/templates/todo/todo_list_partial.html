@@ -1,17 +1,24 @@
 <div id="todo_list">
-  <form class="sortable" hx-post="{% url 'todo:rerank' %}" hx-trigger="end">
+  <ol
+    class="sortable"
+    hx-post="{% url 'todo:rerank' %}"
+    hx-include="[name='todo_order']"
+    hx-trigger="end"
+  >
     {% for todo in todos %}
-    <div
-      id="todo_{{todo.pk}}"
-      class="clickable"
-      hx-get="{% url 'todo:todo_details_partial' todo.pk %}"
-      hx-trigger="click"
-      hx-target="this"
-      hx-swap="outerHTML"
-    >
-      <div>{{todo.title}}({{todo.pk}})</div>
-      <input type="hidden" name="todo_order" value="{{todo.pk}}" />
-    </div>
+    <li>
+      <div
+        id="todo_{{todo.pk}}"
+        class="clickable"
+        hx-get="{% url 'todo:todo_details_partial' todo.pk %}"
+        hx-trigger="click"
+        hx-target="this"
+        hx-swap="outerHTML"
+      >
+        <div>{{todo.title}}</div>
+        <input type="hidden" name="todo_order" value="{{todo.pk}}" />
+      </div>
+    </li>
     {% endfor %}
-  </form>
+  </ol>
 </div>
