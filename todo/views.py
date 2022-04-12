@@ -1,6 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+
 
 def index(request):
-    print(request)
-    return HttpResponse("Hello, world. You're at the todo app index.")
-
+    return render(request, 'todo/index.html', {})
