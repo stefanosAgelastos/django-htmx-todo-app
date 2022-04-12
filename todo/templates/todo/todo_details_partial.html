@@ -2,7 +2,6 @@
   <form>
     <fieldset>
       <div>
-        {{todo.rank}} -
         <input
           type="text"
           name="todo_{{todo.pk}}_title"
@@ -10,7 +9,7 @@
         />
       </div>
       <div>
-        <textarea name="todo_{{todo.pk}}_text" rows="5" cols="30">
+        <textarea name="todo_{{todo.pk}}_text" rows="5" cols="20">
 {{todo.text}}</textarea
         >
       </div>
